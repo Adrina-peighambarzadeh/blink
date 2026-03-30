@@ -6,38 +6,39 @@
 */
 
 
-const int trigPin = 9;
-const int echoPin = 10;
+const int trigPin = 3;  // Connected to Trig
+const int echoPin = 2;  // Connected to Echo
 
-float duration, distance;
+long duration;
+int distance;
 
 void setup() {
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  Serial.begin(9600);
+  pinMode(trigPin, OUTPUT); 
+  pinMode(echoPin, INPUT); 
+  Serial.begin(9600); 
 }
 
 void loop() {
-  // Clear the trigPin
+  // Clear the trigger
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
 
-  // Trigger the sensor by sending a 10-microsecond pulse
+  // Send a 10 microsecond pulse
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
 
-  // Read the echoPin (returns the sound wave travel time in microseconds)
+  // Measure the bounce back time
   duration = pulseIn(echoPin, HIGH);
 
-  // Calculate the distance (Speed of sound is 0.0343 cm/us)
-  // We divide by 2 because the sound travels to the object and back
-  distance = (duration * 0.0343) / 2;
+  // Calculate distance in cm
+  // Distance = (Time x Speed of Sound) / 2
+  distance = duration * 0.034 / 2;
 
-  // Print the distance to the Serial Monitor
+  // Print to Serial Monitor
   Serial.print("Distance: ");
   Serial.print(distance);
   Serial.println(" cm");
 
-  delay(100);
+  delay(200); // Wait a bit before the next reading
 }
