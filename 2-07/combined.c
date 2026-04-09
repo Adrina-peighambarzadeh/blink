@@ -11,8 +11,8 @@ const int SERVO_PIN = 9;
 Servo myServo;
 
 // Distance sensor setup
-const int trigPin = 3;
-const int echoPin = 2;
+const int TRIG_PIN = 3;
+const int ECHO_PIN = 2;
 
 long duration;
 int distance;
@@ -20,8 +20,8 @@ int distance;
 void setup() {
   Serial.begin(9600);
 
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
 
   myServo.attach(SERVO_PIN);
 
@@ -34,14 +34,14 @@ void loop() {
 
   // --- DISTANCE SENSOR CODE ---
 
-  digitalWrite(trigPin, LOW);
+  digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(2);
 
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(TRIG_PIN, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+  digitalWrite(TRIG_PIN, LOW);
 
-  duration = pulseIn(echoPin, HIGH);
+  duration = pulseIn(ECHO_PIN, HIGH);
 
   distance = duration * 0.034 / 2;
 
@@ -60,7 +60,7 @@ void loop() {
 
     myServo.write(30);
     delay(500);
-  } 
+  }
   else {
     // Stay in middle if nothing is close
     myServo.write(90);
